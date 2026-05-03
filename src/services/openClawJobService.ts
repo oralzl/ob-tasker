@@ -196,10 +196,13 @@ JSON 输出结构：
   "nextActions": ["建议的下一步行动"]
 }
 
-当前项目文件内容：
----
+当前项目文件内容如下，保留原样供你理解项目结构：
+
+<project-markdown path="${project.path}">
+\`\`\`markdown
 ${projectMarkdown}
----
+\`\`\`
+</project-markdown>
 `;
 }
 
