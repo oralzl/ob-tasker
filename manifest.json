@@ -1,0 +1,9 @@
+{
+  "id": "ob-tasker",
+  "name": "Ob Tasker",
+  "version": "0.1.0",
+  "minAppVersion": "1.5.0",
+  "description": "Manage current project nodes from Markdown-backed project files.",
+  "author": "thiskee",
+  "isDesktopOnly": false
+}

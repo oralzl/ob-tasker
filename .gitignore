@@ -1,0 +1,11 @@
+node_modules/
+dist/
+*.log
+
+.obsidian/
+Tasker Inbox.md
+projects/
+*.zip
+PRODUCT.md
+DESIGN.md
+docs/plans/
