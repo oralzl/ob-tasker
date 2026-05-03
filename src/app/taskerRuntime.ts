@@ -5,6 +5,7 @@ import { ProjectService } from "../services/projectService";
 import { SettingsService } from "../services/settingsService";
 import { migrateLegacyStorage } from "../services/storageMigration";
 import { TaskerFiles } from "../services/taskerFiles";
+import { OpenClawJobService } from "../services/openClawJobService";
 import type { TaskerSettings } from "../types/settings";
 
 export interface TaskerRuntime {
@@ -15,6 +16,7 @@ export interface TaskerRuntime {
   projectService: ProjectService;
   inboxService: InboxService;
   archiveService: ArchiveService;
+  openClawJobService: OpenClawJobService;
 }
 
 export async function createTaskerRuntime(plugin: Plugin): Promise<TaskerRuntime> {
@@ -33,9 +35,16 @@ export async function createTaskerRuntime(plugin: Plugin): Promise<TaskerRuntime
     settingsService,
     settings,
   );
+  const openClawJobService = new OpenClawJobService(
+    plugin.app,
+    files,
+    projectService,
+    settings,
+  );
 
   await projectService.ensureProjectDirs();
   await inboxService.ensureInbox();
+  await openClawJobService.ensureJobDirs();
 
   return {
     plugin,
@@ -45,5 +54,6 @@ export async function createTaskerRuntime(plugin: Plugin): Promise<TaskerRuntime
     projectService,
     inboxService,
     archiveService,
+    openClawJobService,
   };
 }

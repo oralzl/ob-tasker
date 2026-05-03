@@ -43,6 +43,8 @@ export interface TaskerStore extends TaskerStoreState {
   reorderProjectTasks: (projectId: string, taskIds: string[]) => Promise<void>;
   restoreProject: (archivedPath: string) => Promise<void>;
   saveProjectBody: (projectId: string, body: string) => Promise<void>;
+  createOpenClawContextJob: (projectId: string) => Promise<void>;
+  applyOpenClawContext: (projectId: string) => Promise<void>;
   updateProjectName: (projectId: string, name: string) => Promise<void>;
   updateTask: (projectId: string, taskId: string, patch: Partial<Task>) => Promise<void>;
   updateTaskStatus: (projectId: string, taskId: string, status: TaskStatus) => Promise<void>;
@@ -328,6 +330,20 @@ export function useTaskerStore(runtime: TaskerRuntime): TaskerStore {
     }));
   }, [runtime, state.projects]);
 
+  const createOpenClawContextJob = useCallback(async (projectId: string) => {
+    await runAction(async () => {
+      const project = findProject(state.projects, projectId);
+      await runtime.openClawJobService.createEnrichProjectContextJob(project);
+    });
+  }, [runAction, runtime, state.projects]);
+
+  const applyOpenClawContext = useCallback(async (projectId: string) => {
+    await runAction(async () => {
+      const project = findProject(state.projects, projectId);
+      await runtime.openClawJobService.applyLatestEnrichProjectContext(project);
+    });
+  }, [runAction, runtime, state.projects]);
+
   const openMarkdownFile = useCallback(async (projectId: string) => {
     const project = findProject(state.projects, projectId);
     const file = runtime.files.getMarkdownFile(project.path);
@@ -372,6 +388,8 @@ export function useTaskerStore(runtime: TaskerRuntime): TaskerStore {
     reorderProjects,
     restoreProject,
     saveProjectBody,
+    createOpenClawContextJob,
+    applyOpenClawContext,
     setActiveArea,
     setPage,
     updateProjectName,
@@ -391,6 +409,8 @@ export function useTaskerStore(runtime: TaskerRuntime): TaskerStore {
     reorderProjects,
     restoreProject,
     saveProjectBody,
+    createOpenClawContextJob,
+    applyOpenClawContext,
     setActiveArea,
     setPage,
     updateProjectName,

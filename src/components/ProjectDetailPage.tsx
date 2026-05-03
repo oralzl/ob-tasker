@@ -63,6 +63,22 @@ export function ProjectDetailPage({ store }: ProjectDetailPageProps) {
           <button
             className="tasker-secondary-button"
             type="button"
+            disabled={store.busy}
+            onClick={() => void store.createOpenClawContextJob(project.id)}
+          >
+            生成上下文任务
+          </button>
+          <button
+            className="tasker-secondary-button"
+            type="button"
+            disabled={store.busy}
+            onClick={() => void store.applyOpenClawContext(project.id)}
+          >
+            应用上下文结果
+          </button>
+          <button
+            className="tasker-secondary-button"
+            type="button"
             onClick={() => void store.openMarkdownFile(project.id)}
           >
             打开 Markdown
