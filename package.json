@@ -1,6 +1,6 @@
 {
   "name": "ob-tasker",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Project-node task manager for Obsidian.",
   "main": "main.js",
   "scripts": {
