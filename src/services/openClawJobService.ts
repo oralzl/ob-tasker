@@ -179,9 +179,9 @@ function buildEnrichProjectContextPrompt({
 - 用户请求：${request}
 
 工作方式：
-1. 优先检索当前仓库 / vault 中和项目名称、任务标题、关键词相关的 Markdown、脚本、配置和长期记忆文件。
-2. 可以使用本地检索工具，例如 rg、find、sed、cat，但不要修改任何文件。
-3. 不要编造来源；如果没有找到相关材料，明确说明“未找到本地依据”。
+1. 自主判断需要查看哪些本地材料来理解这个项目/任务。
+2. 不要修改任何文件。
+3. 不要编造来源；如果没有找到相关依据，明确说明“未找到本地依据”。
 4. 输出必须是 JSON，不要包裹 Markdown 代码块，不要添加 JSON 之外的说明文字。
 5. 你不负责写入项目文件。Ob Tasker 插件会读取 JSON 的 contextMarkdown，并插入到项目文件的 "# 项目标题" 与 "## Tasker" 之间。
 6. contextMarkdown 必须是 Markdown 片段，不要包含 "# 项目标题" 或 "## Tasker" 标题。建议从 "## Context" 开始。
