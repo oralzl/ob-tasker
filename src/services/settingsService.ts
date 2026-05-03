@@ -1,5 +1,13 @@
 import type { Plugin } from "obsidian";
-import { DEFAULT_AREAS, DEFAULT_SETTINGS, normalizeAreaName, type TaskerSettings } from "../types/settings";
+import {
+  DEFAULT_AREAS,
+  DEFAULT_SETTINGS,
+  LEGACY_ARCHIVE_DIR,
+  LEGACY_INBOX_PATH,
+  LEGACY_PROJECT_DIR,
+  normalizeAreaName,
+  type TaskerSettings,
+} from "../types/settings";
 
 export class SettingsService {
   constructor(private readonly plugin: Plugin) {}
@@ -29,9 +37,9 @@ export function normalizeSettings(value: unknown): TaskerSettings {
     : areas[0];
 
   return {
-    projectDir: stringOrDefault(raw.projectDir, DEFAULT_SETTINGS.projectDir),
-    archiveDir: stringOrDefault(raw.archiveDir, DEFAULT_SETTINGS.archiveDir),
-    inboxPath: stringOrDefault(raw.inboxPath, DEFAULT_SETTINGS.inboxPath),
+    projectDir: storagePathOrDefault(raw.projectDir, DEFAULT_SETTINGS.projectDir, LEGACY_PROJECT_DIR),
+    archiveDir: storagePathOrDefault(raw.archiveDir, DEFAULT_SETTINGS.archiveDir, LEGACY_ARCHIVE_DIR),
+    inboxPath: storagePathOrDefault(raw.inboxPath, DEFAULT_SETTINGS.inboxPath, LEGACY_INBOX_PATH),
     projectOrder: Array.isArray(raw.projectOrder)
       ? raw.projectOrder.filter((item): item is string => typeof item === "string")
       : DEFAULT_SETTINGS.projectOrder,
@@ -51,6 +59,15 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function stringOrDefault(value: unknown, fallback: string): string {
   return typeof value === "string" && value.trim() ? value.trim() : fallback;
+}
+
+function storagePathOrDefault(value: unknown, fallback: string, legacyPath: string): string {
+  const path = stringOrDefault(value, fallback);
+  return trimOuterSlashes(path) === trimOuterSlashes(legacyPath) ? fallback : path;
+}
+
+function trimOuterSlashes(path: string): string {
+  return path.replace(/^\/+|\/+$/g, "");
 }
 
 function normalizeAreas(value: unknown): string[] {

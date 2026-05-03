@@ -46,4 +46,5 @@ npm test
 npm run build
 ```
 
-The repository excludes local vault data such as `Tasker Inbox.md`, `projects/`, and `.obsidian/`.
+The plugin stores task data in `ob-tasker/inbox.md` and `ob-tasker/projects/` inside the vault.
+The repository excludes local vault data such as `ob-tasker/`, legacy `Tasker Inbox.md` and `projects/`, and `.obsidian/`.

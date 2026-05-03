@@ -3,6 +3,7 @@ dist/
 *.log
 
 .obsidian/
+ob-tasker/
 Tasker Inbox.md
 projects/
 *.zip

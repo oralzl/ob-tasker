@@ -14,10 +14,14 @@ export interface TaskerSettings {
   activeArea: string;
 }
 
+export const LEGACY_PROJECT_DIR = "projects";
+export const LEGACY_ARCHIVE_DIR = "projects/archive";
+export const LEGACY_INBOX_PATH = "Tasker Inbox.md";
+
 export const DEFAULT_SETTINGS: TaskerSettings = {
-  projectDir: "projects",
-  archiveDir: "projects/archive",
-  inboxPath: "Tasker Inbox.md",
+  projectDir: "ob-tasker/projects",
+  archiveDir: "ob-tasker/projects/archive",
+  inboxPath: "ob-tasker/inbox.md",
   projectOrder: [],
   projectOrders: {},
   lastView: "home",
